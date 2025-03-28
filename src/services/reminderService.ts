@@ -25,9 +25,10 @@ export class ReminderService {
                 hours = 0;
             }
 
-            // Crear fecha con zona horaria de Cuba
+            // Crear fecha directamente en UTC-4
             const reminderDate = new Date(this.currentYear, month - 1, day, hours, minutes);
-            return createReminderDate(reminderDate);
+            const utcMinus4Date = new Date(reminderDate.getTime() - (4 * 60 * 60 * 1000));
+            return utcMinus4Date;
         } catch (error) {
             return null;
         }
