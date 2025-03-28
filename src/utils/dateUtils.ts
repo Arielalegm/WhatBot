@@ -16,13 +16,17 @@ export function getCurrentDateTime(): string {
 
 export function getCurrentDate(): Date {
     const now = new Date();
-    const havanaDate = new Date(now.toLocaleString('en-US', { timeZone: 'America/Havana' }));
-    return havanaDate;
+    // Convertir a UTC antes de ajustar a zona horaria de Cuba
+    const utcNow = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
+    return new Date(utcNow.toLocaleString('en-US', { timeZone: 'America/Havana' }));
 }
 
 export function createReminderDate(date: Date): Date {
-    // Asegurarnos de que la fecha se interprete en zona horaria de Cuba
-    const timeString = date.toLocaleString('en-US', {
+    // Convertir a UTC
+    const utcDate = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
+    
+    // Formatear en UTC y luego convertir a zona horaria de Cuba
+    const timeString = utcDate.toLocaleString('en-US', {
         timeZone: 'America/Havana',
         year: 'numeric',
         month: 'numeric',
@@ -33,5 +37,9 @@ export function createReminderDate(date: Date): Date {
         hour12: false
     });
     
-    return new Date(timeString);
+    // Convertir el string resultante a Date
+    const reminderDate = new Date(timeString);
+    // Ajustar offset de zona horaria
+    return new Date(reminderDate.getTime() - (reminderDate.getTimezoneOffset() * 60000));
 }
+
