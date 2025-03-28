@@ -1,5 +1,5 @@
 import { chat } from '../scripts/gemini';
-import { getCurrentDateTime } from '../utils/dateUtils';
+import { getCurrentDateTime, getCurrentDate, createReminderDate } from '../utils/dateUtils';
 
 interface Reminder {
     date: Date;
@@ -8,7 +8,7 @@ interface Reminder {
 }
 
 export class ReminderService {
-    private currentYear = new Date().getFullYear();
+    private currentYear = getCurrentDate().getFullYear();
     private activeReminders: Reminder[] = [];
 
     parseDateTime(dateStr: string, timeStr: string): Date | null {
@@ -17,7 +17,6 @@ export class ReminderService {
             const [time, period] = timeStr.match(/(\d+:\d+)(am|pm)/i)?.slice(1) || [];
             const [baseHours, minutes] = time.split(':').map(num => parseInt(num));
             
-            // Calcular las horas finales
             let hours = baseHours;
             if (period.toLowerCase() === 'pm' && hours !== 12) {
                 hours += 12;
@@ -26,15 +25,16 @@ export class ReminderService {
                 hours = 0;
             }
 
+            // Crear fecha con zona horaria de Cuba
             const reminderDate = new Date(this.currentYear, month - 1, day, hours, minutes);
-            return reminderDate;
+            return createReminderDate(reminderDate);
         } catch (error) {
             return null;
         }
     }
 
     async scheduleReminder(date: Date, message: string, userId: string, ctxFn: any): Promise<string> {
-        const now = new Date();
+        const now = getCurrentDate(); // Usar hora actual en Cuba
         if (date < now) {
             return "La fecha y hora especificadas ya pasaron.";
         }
