@@ -36,14 +36,16 @@ export class ReminderService {
     async scheduleReminder(date: Date, message: string, userId: string, ctxFn: any): Promise<string> {
         const now = getCurrentDate();
         
-        // Convertir ambas fechas a timestamps UTC para comparación
-        const nowTs = now.getTime();
+        // Añadir un margen de 2 segundos para evitar falsos negativos
+        const marginMs = 2000; 
+        const nowTs = now.getTime() - marginMs;
         const dateTs = date.getTime();
         
         if (dateTs < nowTs) {
-            console.log('Fecha recordatorio:', dateTs);
-            console.log('Fecha actual:', nowTs);
-            console.log('Diferencia en minutos:', (dateTs - nowTs) / (1000 * 60));
+            console.log('Debug timestamps:');
+            console.log('Recordatorio:', dateTs);
+            console.log('Actual:', nowTs);
+            console.log('Diferencia (min):', (dateTs - nowTs) / 60000);
             return "La fecha y hora especificadas ya pasaron.";
         }
 
@@ -94,6 +96,19 @@ export class ReminderService {
     async parseNaturalLanguage(text: string, userId: string): Promise<{ date: Date | null, formattedText: string }> {
         const currentDateTime = getCurrentDateTime();
         
+        // Manejar "dentro de X minutos"
+        const minutesMatch = text.match(/dentro\s+de\s+(\d+)\s+minutos?/i);
+        if (minutesMatch) {
+            const minutes = parseInt(minutesMatch[1]);
+            const now = getCurrentDate();
+            const futureDate = new Date(now.getTime() + minutes * 60000);
+            const formattedText = text.replace(/dentro\s+de\s+\d+\s+minutos?/i, '').trim();
+            return {
+                date: futureDate,
+                formattedText
+            };
+        }
+
         const prompt = `Como asistente experto en procesamiento de fechas, analiza el siguiente texto:
         "${text}"
         
