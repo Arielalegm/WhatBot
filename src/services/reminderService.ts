@@ -34,15 +34,23 @@ export class ReminderService {
     }
 
     async scheduleReminder(date: Date, message: string, userId: string, ctxFn: any): Promise<string> {
-        const now = getCurrentDate(); // Usar hora actual en Cuba
-        if (date < now) {
+        const now = getCurrentDate();
+        
+        // Convertir ambas fechas a timestamps UTC para comparación
+        const nowTs = now.getTime();
+        const dateTs = date.getTime();
+        
+        if (dateTs < nowTs) {
+            console.log('Fecha recordatorio:', dateTs);
+            console.log('Fecha actual:', nowTs);
+            console.log('Diferencia en minutos:', (dateTs - nowTs) / (1000 * 60));
             return "La fecha y hora especificadas ya pasaron.";
         }
 
         const reminder: Reminder = { date, message, userId };
         this.activeReminders.push(reminder);
 
-        const timeUntilReminder = date.getTime() - now.getTime();
+        const timeUntilReminder = dateTs - nowTs;
         
         setTimeout(async () => {
             await ctxFn.flowDynamic(`⏰ Recordatorio:\n${message}`);
