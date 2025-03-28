@@ -1,10 +1,8 @@
 export function getCurrentDateTime(): string {
-    // Crear fecha con la zona horaria correcta
     const now = new Date();
-    // Ajustar a la zona horaria local
-    const havanaTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/Havana' }));
-    
-    return havanaTime.toLocaleString('es-ES', {
+    // Convertir explícitamente a zona horaria de Cuba
+    return now.toLocaleString('es-ES', {
+        timeZone: 'America/Havana',
         weekday: 'long',
         year: 'numeric',
         month: 'long',
@@ -18,11 +16,22 @@ export function getCurrentDateTime(): string {
 
 export function getCurrentDate(): Date {
     const now = new Date();
-    return new Date(now.toLocaleString('en-US', { timeZone: 'America/Havana' }));
+    const havanaDate = new Date(now.toLocaleString('en-US', { timeZone: 'America/Havana' }));
+    return havanaDate;
 }
 
-// Agregar esta nueva función para manejar los recordatorios
 export function createReminderDate(date: Date): Date {
-    const havanaTime = new Date(date.toLocaleString('en-US', { timeZone: 'America/Havana' }));
-    return havanaTime;
+    // Asegurarnos de que la fecha se interprete en zona horaria de Cuba
+    const timeString = date.toLocaleString('en-US', {
+        timeZone: 'America/Havana',
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+        hour12: false
+    });
+    
+    return new Date(timeString);
 }
