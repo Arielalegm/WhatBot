@@ -16,30 +16,31 @@ export function getCurrentDateTime(): string {
 
 export function getCurrentDate(): Date {
     const now = new Date();
-    // Convertir a UTC antes de ajustar a zona horaria de Cuba
-    const utcNow = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
-    return new Date(utcNow.toLocaleString('en-US', { timeZone: 'America/Havana' }));
+    // Obtener timestamp UTC actual
+    const utcNow = new Date(Date.UTC(
+        now.getUTCFullYear(),
+        now.getUTCMonth(),
+        now.getUTCDate(),
+        now.getUTCHours(),
+        now.getUTCMinutes(),
+        now.getUTCSeconds()
+    ));
+    
+    // Convertir a hora de Cuba
+    const cubaDate = new Date(utcNow.toLocaleString('en-US', { timeZone: 'America/Havana' }));
+    return cubaDate;
 }
 
 export function createReminderDate(date: Date): Date {
     // Convertir a UTC
-    const utcDate = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
+    const utcDate = new Date(Date.UTC(
+        date.getUTCFullYear(),
+        date.getUTCMonth(),
+        date.getUTCDate(),
+        date.getUTCHours(),
+        date.getUTCMinutes(),
+        date.getUTCSeconds()
+    ));
     
-    // Formatear en UTC y luego convertir a zona horaria de Cuba
-    const timeString = utcDate.toLocaleString('en-US', {
-        timeZone: 'America/Havana',
-        year: 'numeric',
-        month: 'numeric',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-        second: 'numeric',
-        hour12: false
-    });
-    
-    // Convertir el string resultante a Date
-    const reminderDate = new Date(timeString);
-    // Ajustar offset de zona horaria
-    return new Date(reminderDate.getTime() - (reminderDate.getTimezoneOffset() * 60000));
+    return new Date(utcDate.toLocaleString('en-US', { timeZone: 'America/Havana' }));
 }
-
