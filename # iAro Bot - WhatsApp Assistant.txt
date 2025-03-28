@@ -1,0 +1,78 @@
+# iAro Bot - WhatsApp Assistant
+
+Bot asistente para WhatsApp con múltiples funcionalidades y comandos.
+
+## Comandos Disponibles
+
+### Comandos de Control
+- `/chat-off` - Desactiva las respuestas del bot
+- `/chat-on` - Activa las respuestas del bot
+- `/reset` o `/reiniciar` - Reinicia el historial de chat
+- `/prompt <texto>` - Cambia el prompt del sistema
+
+### Comandos de Utilidad
+- `/hora` - Muestra la hora actual en Cuba
+- `/clima <ciudad>` - Muestra el clima de la ciudad especificada
+- `/noticias` - Muestra las últimas noticias
+- `/tt` - Genera un retardo de 15 segundos
+
+### Comandos de Búsqueda
+- `busca en internet <consulta>` - Realiza una búsqueda en Google
+
+### Recordatorios
+- `recuérdame <texto>` - Crea un recordatorio en lenguaje natural
+- `recuérdamelo <texto>` - Alternativa para crear recordatorios
+- `/recordatorios` - Lista todos los recordatorios activos
+- `/delete-r` - Elimina un recordatorio específico
+
+### Manejo de Imágenes
+- `imagen <pregunta>` - Hace una pregunta sobre la última imagen
+- `describe la imagen` - Solicita descripción de una imagen
+- `que ves en la imagen` - Alternativa para descripción de imagen
+- `analiza la imagen` - Alternativa para análisis de imagen
+
+### Saludos
+El bot responde automáticamente a:
+- "hola"
+- "buenos días"
+- "buenas tardes"
+- "buenas noches"
+
+## Funcionalidades Principales
+
+### Procesamiento de Imágenes
+- Análisis y descripción de imágenes compartidas
+- Capacidad de responder preguntas específicas sobre imágenes
+- Las imágenes permanecen disponibles para consultas durante 5 minutos
+
+### Sistema de Memoria
+- Mantiene un historial de conversación
+- Permite contexto en las conversaciones
+- Memoria configurable con ventana de mensajes
+
+### Procesamiento de Audio
+- Transcripción de notas de voz
+- Respuestas basadas en contenido de audio
+- Procesamiento de comandos por voz
+
+### Recordatorios
+- Procesamiento de lenguaje natural para fechas y horas
+- Sistema de gestión de recordatorios
+- Notificaciones automáticas
+
+### Búsqueda Web
+- Integración con Google para búsquedas
+- Respuestas informativas basadas en resultados web
+- Noticias actualizadas
+
+## Características Técnicas
+- Modelo base: Gemini 2.0 Flash
+- Soporte multiusuario
+- Sistema de prompts personalizable
+- Gestión de memoria por usuario
+- Procesamiento de lenguaje natural
+
+## Notas
+- El bot mantiene un historial de conversación para proporcionar respuestas contextuales
+- Los comandos no distinguen entre mayúsculas y minúsculas
+- Los recordatorios utilizan procesamiento de lenguaje natural para interpretar fechas y horas
