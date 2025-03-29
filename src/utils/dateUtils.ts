@@ -18,7 +18,7 @@ export function getCurrentDateTime(): string {
 export function getCurrentDate(): Date {
     const now = new Date();
     // Ajustar a UTC-4
-    return new Date(now.getTime() - (8 * 60 * 60 * 1000));
+    return new Date(now.getTime() - (3 * 60 * 60 * 1000));
 }
 
 export function createReminderDate(date: Date): Date {
