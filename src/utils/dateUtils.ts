@@ -1,7 +1,7 @@
 export function getCurrentDateTime(): string {
     const now = new Date();
     // Ajustar a UTC-4
-    const utcMinus4 = new Date(now.getTime() - (4 * 60 * 60 * 1000));
+    const utcMinus4 = new Date(now.getTime() - (3 * 60 * 60 * 1000));
     
     return utcMinus4.toLocaleString('es-ES', {
         weekday: 'long',
