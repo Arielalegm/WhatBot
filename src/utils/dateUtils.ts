@@ -1,7 +1,7 @@
 export function getCurrentDateTime(): string {
     const now = new Date();
     // Ajustar a UTC-4
-    const utcMinus4 = new Date(now.getTime() - (6 * 60 * 60 * 1000));
+    const utcMinus4 = new Date(now.getTime() - (4 * 60 * 60 * 1000));
     
     return utcMinus4.toLocaleString('es-ES', {
         weekday: 'long',
@@ -18,10 +18,10 @@ export function getCurrentDateTime(): string {
 export function getCurrentDate(): Date {
     const now = new Date();
     // Ajustar a UTC-4
-    return new Date(now.getTime() - (6 * 60 * 60 * 1000));
+    return new Date(now.getTime() - (4 * 60 * 60 * 1000));
 }
 
 export function createReminderDate(date: Date): Date {
     // Asegurarnos que la fecha esté en UTC-4
-    return new Date(date.getTime() - (6 * 60 * 60 * 1000));
+    return new Date(date.getTime() - (4 * 60 * 60 * 1000));
 }
