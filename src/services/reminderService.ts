@@ -27,7 +27,7 @@ export class ReminderService {
 
             // Crear fecha directamente en UTC-4
             const reminderDate = new Date(this.currentYear, month - 1, day, hours, minutes);
-            const utcMinus4Date = new Date(reminderDate.getTime() - (3 * 60 * 60 * 1000));
+            const utcMinus4Date = new Date(reminderDate.getTime() - (5 * 60 * 60 * 1000));
             return utcMinus4Date;
         } catch (error) {
             return null;
