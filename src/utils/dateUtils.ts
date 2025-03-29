@@ -23,5 +23,5 @@ export function getCurrentDate(): Date {
 
 export function createReminderDate(date: Date): Date {
     // Asegurarnos que la fecha esté en UTC-4
-    return new Date(date.getTime() - (8 * 60 * 60 * 1000));
+    return new Date(date.getTime() - (3 * 60 * 60 * 1000));
 }
